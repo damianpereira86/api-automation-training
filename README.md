@@ -2,7 +2,7 @@
 
 Welcome to the **API Automation Training**! This repository serves as the foundation for the training, providing a base API Automation Framework and step-by-step guidance for participants to build their API automation skills.
 
-Find the the API Framework documentation [here](framework/README.md).
+Find the API Framework documentation [here](framework/README.md).
 
 The training is designed for participants to fork this repository, develop their tests for a mock API, and create Pull Requests (PRs) for feedback and review. Mentors will review PRs regularly, providing feedback and guidance to ensure learning and progress.
 
@@ -41,6 +41,7 @@ The training is designed for participants to fork this repository, develop their
 ## Training Milestones
 
 Before starting each milestone, create a feature branch with the name of the milestone, e.g.: `feature/milestone-1`
+Follow each Milestone without reading the next one.
 
 ### **Milestone 1: Learn the Basics of TypeScript**
 
@@ -48,22 +49,25 @@ Before starting each milestone, create a feature branch with the name of the mil
 
 1. Complete an online TypeScript course:
    - Follow the [TypeScript Basics Course](https://learning.oreilly.com/course/ultimate-typescript-course/9781837027019/) to learn key concepts.
-2. Practice writing TypeScript code as part of the course exercises.
-3. Create a folder named `typescript-course` in your repository.
-4. Add the practice code from the course and the completion badge to the `typescript-course` folder.
+2. Create a folder named `typescript-course` in your repository.
+3. Add the completion certificate to the `typescript-course` folder.
+4. Download the [course code](https://github.com/PacktPublishing/Ultimate-TypeScript-Course-2024-All-in-Learn-Build-and-Excel) and extract the `Section 4\typescript_project_class_final` folder to your `typescrypt-course` folder.
+5. Open the copied course code in Visual Studio Code and make a couple of improvements:
+   - Make the box ID unique even when you have pressed the button more than once.
+   - Create a second button to restart the game so you don't have to refresh the page each time you loose.
 
 **Deliverable**:
 
-- Create a PR with the `typescript-course` folder containing your practice code and completion badge.
+- Create a PR with the `typescript-course` folder containing your improved code and the completion certificate.
 - Include a brief summary in the PR description highlighting the topics you covered and any challenges you faced.
 
 ---
 
 ### **Milestone 2: Setup and Explore**
 
-**Objective**: Set up the framework and understand its structure.
+**Objective**: Set up the framework and understand its structure. Start creating a service model for the **Store** service.
 
-1. Move to the framework folder
+1. Move to the framework folder:
    ```bash
     cd framework
     ```
@@ -71,7 +75,7 @@ Before starting each milestone, create a feature branch with the name of the mil
     
     ```bash
     npm install
-    cp example.env .env
+    copy example.env .env
     ```
 3. Update .env with the test API base URL:
     ```yaml
@@ -80,30 +84,31 @@ Before starting each milestone, create a feature branch with the name of the mil
 4. Explore the framework:
     - Read the [API Automation Framework (TS+Mocha)](https://github.com/damianpereira86/api-automation-training/tree/main/framework#readme) Readme.
     - Understand the `ServiceBase` class and its usage in service models.
+	
+5. Create a new `StoreService` extending `ServiceBase`.
 
 **Deliverable**:
 
-- Create a PR with a short description of your setup process and initial findings.
+- Create a PR with the change, adding a short description of your setup process and addition.
 
 ---
 
-### **Milestone 3: Service Model Creation and first test**
+### **Milestone 3: Methods implementation and first test**
 
 **Objective**: Create service models for the **Store** service.
 
-1. Create a new `StoreService` extending `ServiceBase`.
-2. Implement methods for the following operations:
+1. Implement methods in `StoreService` for the following operations:
     - `GET /store/inventory`
     - `POST /store/order`
     - `GET /store/order/{orderId}`
     - `DELETE /store/order/{orderId}`
-3. Add request and response models where appropriate.
-4. Write the **first test** for the following main scenario:
+2. Add request and response models where appropriate.
+3. Write the **first test** for the following main scenario:
    - Create an order and validate the response (`POST /store/order`).
 
 **Deliverable**:
 
-- Create a PR with a description of your implementation process.
+- Create a PR with the changes adding a description of your implementation process.
 
 ---
 
@@ -138,14 +143,14 @@ Before starting each milestone, create a feature branch with the name of the mil
 
 ### **Milestone 6: Verify the order was created**
 
-**Objective**: Make request to the get order endpointto verify the order was actually created.
+**Objective**: Make request to the get order endpoint to verify the order was actually created.
 
 In case you didn't already noticed, the Create Order endpoint does not actually create an order (all the data is mocked). For this reason, if you only asserted against the response, your positive tests should have passed. This is why is so important to verify the resources were actually created.
 
 1. For the positive tests from Milestone 5, after the response assertions, obtain the created order ID from the response
 2. Make a request to the `GET /store/order/{orderId}` endpoint with the order ID
 3. Verify the response of the Get Order endpoint is 200, hence, the order was created successfully.
-4. Since the test should fail, follow step 4 in MIlestone 5 for handling it.
+4. Since the test should fail, follow step 4 in Milestone 5 for handling it.
 
 **Deliverable**:
 
@@ -175,7 +180,7 @@ In case you didn't already noticed, the Create Order endpoint does not actually 
 Note: Since this is a mock API, there are some scenarios that will not work, such as creating an order to use it in the Get Order tests. 
 
 1. Write a [before hook](https://mochajs.org/#hooks) in the Get Order test suite.
-   1. Add a Before hook that reates an order by calling the right method in the StoreService model.
+   1. Add a Before hook that creates an order by calling the right method in the StoreService model.
    3. Obtain and store the order ID (the variable for this must be declared above the before hook).
    4. Use the saved Order ID in the Get Order test. Note that this step will make the test fail as axplained above.
 2. Write an after each hook in the Create Order test suite. This is very useful for cleaning up data after a test execution.
