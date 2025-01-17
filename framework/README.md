@@ -17,20 +17,23 @@ Before you begin, make sure you have Node.js installed on your machine.
 
 ### Preparing your Environment
 
-Before starting with the setup, ensure you have a local copy of the repository. Follow these steps to clone the repository and set up your environment:
+Before starting with the setup, fork the repository and ensure you have a local copy of it following these steps, which will also guide you to set up your environment:
 
-1. Clone the repository to your local machine using the following command in your terminal:
+1. **Fork the Repository**: Begin by forking the repository to your GitHub account. This creates your own copy of the project where you can make your changes.
 
-   ```bash
-   git clone https://github.com/damianpereira86/api-framework-ts-mocha.git
-
-2. Navigate to the project directory on your terminal. This is where the `package.json` file is located.
+2. **Clone the Forked Repo**: Clone the forked repository to your local machine to start working on the changes.
 
     ```bash
-    cd api-framework-ts-mocha
+    git clone https://github.com/YOUR_USERNAME/YOUR_FORKED_REPO.git
     ```
 
-3. Install the necessary dependencies by running the following command in the root folder:
+3. Navigate to the project directory on your terminal. This is where the `package.json` file is located.
+
+    ```bash
+    cd api-automation-training\framework
+    ```
+
+4. Install the necessary dependencies by running the following command in the root folder:
 
     ```bash
     npm install
@@ -43,7 +46,7 @@ The `.env` file is used to store environment variables that are important for ru
 - Start by copying the `example.env` file provided in the project directory:
 
     ```bash
-    cp example.env .env
+    copy example.env .env
     ```
 
 - Open the `.env` file in your preferred text editor and update the following properties with your local environment values:
@@ -56,8 +59,7 @@ The `.env` file is used to store environment variables that are important for ru
 
     Make sure to replace `api_base_url`, `username`, and `password` with the actual values you wish to use for testing. The `BASEURL` should point to the base URL of the API you are testing. `USER` and `PASSWORD` are used for scenarios where authentication is required.
 
-**Note:** The values provided in the `example.env` file correspond to the [Restful-booker](https://restful-booker.herokuapp.com/apidoc/index.html) API used for demonstration purposes in this framework, which is a test API. I did it to make it frictionless to run the example tests. 
-However, it is crucial to **never** commit these values or your personal environment variables to version control in a real project, as it can expose sensitive information.
+**Note:** it is crucial to **never** commit the values from the .env file or your personal environment variables to version control in a real project, as it can expose sensitive information.
     
 ### VS Code Extensions
 
@@ -327,7 +329,7 @@ For more detailed examples and advanced features, refer to the [GitHub Actions D
 
 ## Extensions
 
-This framework has been extended in teh past with different features such as:
+This framework has been extended in the past with different features such as:
 
 - Reporter
 - Schema validation
