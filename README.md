@@ -63,9 +63,9 @@ Follow each Milestone without reading the next one.
 
 ---
 
-### **Milestone 2: Setup and Explore**
+### **Milestone 2: Setup and Explore. Service model creation and first tests**
 
-**Objective**: Set up the framework and understand its structure. Start creating a service model for the **Store** service.
+**Objective**: Set up the framework and understand its structure. Create a service model with methods for the **Store** service.
 
 1. Move to the framework folder:
    ```bash
@@ -86,33 +86,22 @@ Follow each Milestone without reading the next one.
     - Understand the `ServiceBase` class and its usage in service models.
 	
 5. Create a new `StoreService` extending `ServiceBase`.
-
-**Deliverable**:
-
-- Create a PR with the change, adding a short description of your setup process and addition.
-
----
-
-### **Milestone 3: Methods implementation and first test**
-
-**Objective**: Create service models for the **Store** service.
-
-1. Implement methods in `StoreService` for the following operations:
+6. Implement methods in `StoreService` for the following operations:
     - `GET /store/inventory`
     - `POST /store/order`
     - `GET /store/order/{orderId}`
     - `DELETE /store/order/{orderId}`
-2. Add request and response models where appropriate.
-3. Write the **first test** for the following main scenario:
+7. Add request and response models where appropriate.
+8. Write the **first test** for the following main scenario:
    - Create an order and validate the response (`POST /store/order`).
 
 **Deliverable**:
 
-- Create a PR with the changes adding a description of your implementation process.
+- Create a PR with the change, adding a short description of your implementation process.
 
 ---
 
-### **Milestone 4: CI/CD Pipeline**
+### **Milestone 3: CI/CD Pipeline**
 
 **Objective**: Configure and understand the GitHub Action to run tests on each PR and merge to `main`.
 
@@ -126,7 +115,7 @@ Follow each Milestone without reading the next one.
 
 ---
 
-### **Milestone 5: Complete the Create Order Suite**
+### **Milestone 4: Complete the Create Order Suite**
 
 **Objective**: Write tests for the rest of the Create Store test Suite.
 
@@ -141,7 +130,7 @@ Follow each Milestone without reading the next one.
 
 ---
 
-### **Milestone 6: Verify the order was created**
+### **Milestone 5: Verify the order was created**
 
 **Objective**: Make request to the get order endpoint to verify the order was actually created.
 
@@ -158,7 +147,7 @@ In case you didn't already noticed, the Create Order endpoint does not actually 
 
 ---
 
-### **Milestone 7: Create Test Suites for the rest of the Store Service**
+### **Milestone 6: Create Test Suites for the rest of the Store Service**
 
 **Objective**: Write tests for the rest of the Store service following the pracices covered above.
 
@@ -173,7 +162,7 @@ In case you didn't already noticed, the Create Order endpoint does not actually 
 
 ---
 
-### **Milestone 8: Pre and Post conditions: Hooks**
+### **Milestone 7: Pre and Post conditions: Hooks**
 
 **Objective**: Write hooks for pre and post conditions.
 
@@ -195,7 +184,7 @@ Note: Since this is a mock API, there are some scenarios that will not work, suc
 
 ---
 
-### **Milestone 9: Verify endpoints basic Performance**
+### **Milestone 8: Verify endpoints basic Performance**
 
 **Objective**: Expand the test suite with basic performance test cases.
 
@@ -207,7 +196,7 @@ Note: Since this is a mock API, there are some scenarios that will not work, suc
 
 ---
 
-### **Milestone 10: Extend to Other Services**
+### **Milestone 9: Extend to Other Services**
 
 **Objective**: Implement automation for additional services (`Pet` and `User`).
 
@@ -219,7 +208,7 @@ Note: Since this is a mock API, there are some scenarios that will not work, suc
 
 ---
 
-### **Milestone 11: Authentication**
+### **Milestone 10: Authentication**
 
 **Objective**: Implement the authenticate method.
 
