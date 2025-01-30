@@ -30,7 +30,7 @@ The training is designed for participants to fork this repository, develop their
 ## Workflow and Guidelines
 
 1. **Fork the Repository**: Fork this repo to your GitHub account and create a local clone.
-2. **Add collaborators**: Add your mentors as colalborators to the repo.
+2. **Add collaborators**: Add your mentors as collaborators to the repo.
 3. **Branching**: Use feature branches (e.g., `feature/milestone-1`) for your changes.
 4. **Pull Requests**: Create PRs for each milestone. Include a description of your changes and any challenges faced. Add your mentor as a reviewer.
 5. **Code Reviews**: Mentors will review your PRs on demand, providing feedback.
@@ -54,7 +54,7 @@ Follow each Milestone without reading the next one.
 4. Download the [course code](https://github.com/PacktPublishing/Ultimate-TypeScript-Course-2024-All-in-Learn-Build-and-Excel) and extract the `Section 4\typescript_project_class_final` folder to your `typescrypt-course` folder.
 5. Open the copied course code in Visual Studio Code and make a couple of improvements:
    - Make the box ID unique even when you have pressed the button more than once.
-   - Create a second button to restart the game so you don't have to refresh the page each time you loose.
+   - Create a second button to restart the game so you don't have to refresh the page each time you lose.
 
 **Deliverable**:
 
@@ -132,9 +132,9 @@ Follow each Milestone without reading the next one.
 
 ### **Milestone 5: Verify the order was created**
 
-**Objective**: Make request to the get order endpoint to verify the order was actually created.
+**Objective**: Make a request to the get order endpoint to verify the order was actually created.
 
-In case you didn't already noticed, the Create Order endpoint does not actually create an order (all the data is mocked). For this reason, if you only asserted against the response, your positive tests should have passed. This is why is so important to verify the resources were actually created.
+In case you didn't already notice, the Create Order endpoint does not actually create an order (all the data is mocked). For this reason, if you only asserted against the response, your positive tests should have passed. This is why is so important to verify the resources were actually created.
 
 1. For the positive tests from Milestone 5, after the response assertions, obtain the created order ID from the response
 2. Make a request to the `GET /store/order/{orderId}` endpoint with the order ID
@@ -149,9 +149,9 @@ In case you didn't already noticed, the Create Order endpoint does not actually 
 
 ### **Milestone 6: Create Test Suites for the rest of the Store Service**
 
-**Objective**: Write tests for the rest of the Store service following the pracices covered above.
+**Objective**: Write tests for the rest of the Store service following the practices covered above.
 
-1. Write a tests suite for each of the remaining endpoints in the Store Service:
+1. Write a test suite for each of the remaining endpoints in the Store Service:
     - `GET /store/inventory`
     - `GET /store/order/{orderId}`
     - `DELETE /store/order/{orderId}`
@@ -164,14 +164,14 @@ In case you didn't already noticed, the Create Order endpoint does not actually 
 
 ### **Milestone 7: Pre and Post conditions: Hooks**
 
-**Objective**: Write hooks for pre and post conditions.
+**Objective**: Write hooks for pre and post-conditions.
 
 Note: Since this is a mock API, there are some scenarios that will not work, such as creating an order to use it in the Get Order tests. 
 
 1. Write a [before hook](https://mochajs.org/#hooks) in the Get Order test suite.
    1. Add a Before hook that creates an order by calling the right method in the StoreService model.
    3. Obtain and store the order ID (the variable for this must be declared above the before hook).
-   4. Use the saved Order ID in the Get Order test. Note that this step will make the test fail as axplained above.
+   4. Use the saved Order ID in the Get Order test. Note that this step will make the test fail as explained above.
 2. Write an after each hook in the Create Order test suite. This is very useful for cleaning up data after a test execution.
    1. Declare an orderId variable on top of the test suite
    2. After every positive test, update the orderId variable with the newly created Order ID.
@@ -180,7 +180,7 @@ Note: Since this is a mock API, there are some scenarios that will not work, suc
 **Deliverable**:
 
 - Create a PR with the changes and a brief summary. 
-- Since the Before hook will make the Get Order tests fail, you can comment this method before creating the PR, or setting the fake Order IDs (1-10) after making the Create Order request.
+- Since the Before hook will make the Get Order tests fail, you can comment this method before creating the PR or setting the fake Order IDs (1-10) after making the Create Order request.
 
 ---
 
@@ -217,7 +217,7 @@ Note: Since this is a mock API, there are some scenarios that will not work, suc
 3. Modify the authenticate method implementation
    1. Add the USER and PASSWORD environment variables to the .env file
    2. Modify line 46 to call the `GET /user/login` endpoint. Note that this endpoint is a GET, and expects two params instead of a payload as in the example.
-   3. Set the obtained Session ID correctly according the API documentation. Check the [Delete Pet](https://petstore.swagger.io/#/pet/deletePet) request for information on how to set the session ID.
+   3. Set the obtained Session ID correctly according to the API documentation. Check the [Delete Pet](https://petstore.swagger.io/#/pet/deletePet) request for information on how to set the session ID.
    4. Modify the Delete Pet test to call the authenticate method from a before hook.
 
 **Deliverable**:
