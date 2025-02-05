@@ -105,10 +105,11 @@ Follow each Milestone without reading the next one.
 
 **Objective**: Configure and understand the GitHub Action to run tests on each PR and merge to `main`.
 
-1. Explore the `.github/workflows/main.yml` file to understand the workflow triggers and steps.
-2. If you are not familiar with GitHub Actions, do some research to understand the basics, such as workflows, jobs, and steps. Refer to the [GitHub Actions Documentation](https://docs.github.com/en/actions).
-3. Create a new environment called "Testing" in **Settings** > **Environments** > **New environment**
-4. Configure the `BASEURL` as an environment variable with value: `https://petstore.swagger.io/v2`
+1. If you are not familiar with GitHub Actions, do some research to understand the basics, such as workflows, jobs, and steps. Refer to the [GitHub Actions Documentation](https://docs.github.com/en/actions).
+2. Explore the `.github/workflows/main.yml` file to understand the workflow triggers and steps.
+3. Based on the research you did on Github Actions and your experience runing the tests in Visual Code, add the missing line in the main.yml file so the tests are run in the pipeline.
+4. Create a new environment called "Testing" in **Settings** > **Environments** > **New environment**
+5. Configure the `BASEURL` as an environment variable with value: `https://petstore.swagger.io/v2`
 
 **Deliverable**:
 
