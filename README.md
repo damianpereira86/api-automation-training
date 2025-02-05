@@ -121,7 +121,7 @@ Follow each Milestone without reading the next one.
 
 **Objective**: Write tests for the rest of the Create Store test Suite.
 
-1. Write additional tests for the Create Store (`POST /store/order`) endpoint.
+1. Write additional tests for the Create Order (`POST /store/order`) endpoint.
 2. Include positive and negative tests.
 3. Use tags like `@Smoke` or `@Regression` for test categorization. `@Smoke` tests should be the ones that are absolutely required to pass.
 4. In case a test fails due to a bug in the API, make sure to create the bug in the Issues tab and follow the [Bug Management documentation](https://github.com/damianpereira86/api-automation-training/tree/main/framework#bug-management).
@@ -136,12 +136,13 @@ Follow each Milestone without reading the next one.
 
 **Objective**: Make a request to the get order endpoint to verify the order was actually created.
 
-In case you didn't already notice, the Create Order endpoint does not actually create an order (all the data is mocked). For this reason, if you only asserted against the response, your positive tests should have passed. This is why is so important to verify the resources were actually created.
+Note: when testing a POST endpoint you normally don't send the ID (it is generated automatically and returned to you in the response), but you might have noticed that this endpoint allows you to do that, and the order gets actually created with the ID you sent.
+But in case you didn't already notice, if you didn't provide the ID in the Create Order endpoint, it does not actually create an order (all the data is mocked). For this reason, if you did that and only asserted against the response, your positive tests should have passed. This is why is so important to verify the resources were actually created.
 
-1. For the positive tests from Milestone 5, after the response assertions, obtain the created order ID from the response
+1. For your positive tests, after the response assertions, obtain the created order ID from the response
 2. Make a request to the `GET /store/order/{orderId}` endpoint with the order ID
 3. Verify the response of the Get Order endpoint is 200, hence, the order was created successfully.
-4. Since the test should fail, follow step 4 in Milestone 5 for handling it.
+4. Since the test where you didn't provide the ID for the POST in the first place should now be failing, follow step 4 in Milestone 5 for handling it.
 
 **Deliverable**:
 
@@ -168,12 +169,12 @@ In case you didn't already notice, the Create Order endpoint does not actually c
 
 **Objective**: Write hooks for pre and post-conditions.
 
-Note: Since this is a mock API, there are some scenarios that will not work, such as creating an order to use it in the Get Order tests. 
+Note: Remember that with this API, to create an order that you can actually use in the Get Order scenarios you must provide an order ID in the order creation.
 
 1. Write a [before hook](https://mochajs.org/#hooks) in the Get Order test suite.
    1. Add a Before hook that creates an order by calling the right method in the StoreService model.
    3. Obtain and store the order ID (the variable for this must be declared above the before hook).
-   4. Use the saved Order ID in the Get Order test. Note that this step will make the test fail as explained above.
+   4. Use the saved Order ID in the Get Order test.
 2. Write an after each hook in the Create Order test suite. This is very useful for cleaning up data after a test execution.
    1. Declare an orderId variable on top of the test suite
    2. After every positive test, update the orderId variable with the newly created Order ID.
@@ -182,7 +183,6 @@ Note: Since this is a mock API, there are some scenarios that will not work, suc
 **Deliverable**:
 
 - Create a PR with the changes and a brief summary. 
-- Since the Before hook will make the Get Order tests fail, you can comment this method before creating the PR or setting the fake Order IDs (1-10) after making the Create Order request.
 
 ---
 
