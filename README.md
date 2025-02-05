@@ -107,7 +107,8 @@ Follow each Milestone without reading the next one.
 
 1. Explore the `.github/workflows/main.yml` file to understand the workflow triggers and steps.
 2. If you are not familiar with GitHub Actions, do some research to understand the basics, such as workflows, jobs, and steps. Refer to the [GitHub Actions Documentation](https://docs.github.com/en/actions).
-3. Configure the `BASEURL` variable in **Settings** > **Secrets and variables** > **Actions** > **Variables** with: `https://petstore.swagger.io/v2`
+3. Create a new environment called "Testing" in **Settings** > **Environments** > **New environment**
+4. Configure the `BASEURL` as an environment variable with value: `https://petstore.swagger.io/v2`
 
 **Deliverable**:
 
