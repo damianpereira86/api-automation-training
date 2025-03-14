@@ -2,8 +2,6 @@
 
 Welcome to the **API Automation Training**! This repository serves as the foundation for the training, providing a base API Automation Framework and step-by-step guidance for participants to build their API automation skills.
 
-Find the API Framework documentation [here](framework/README.md).
-
 The training is designed for participants to fork this repository, develop their tests for a mock API, and create Pull Requests (PRs) for feedback and review. Mentors will review PRs regularly, providing feedback and guidance to ensure learning and progress.
 
 ---
@@ -20,7 +18,7 @@ The training is designed for participants to fork this repository, develop their
    Grasp core concepts like service modeling (encapsulating API endpoints), organizing test cases, setting up environments with `.env` files, and strategies for functional and non-functional API testing.
 
 4. **Implement Test Automation**:  
-   Use the base framework to write tests for real-world scenarios using the [Petstore API](https://petstore.swagger.io/). Implement robust, maintainable test scripts for CRUD operations and edge cases.
+   Use the base framework to write tests for real-world scenarios using the [CatCafeProject API](https://github.com/CodingRainbowCat/CatCafeProject). Implement robust, maintainable test scripts for CRUD operations and edge cases.
 
 5. **Collaborate Effectively**:  
    Develop skills in using Git workflows for version control. Create feature branches, submit Pull Requests (PRs), and respond to feedback from mentors. Learn best practices for working in an asynchronous environment while maintaining high-quality contributions.
@@ -65,7 +63,7 @@ Follow each Milestone without reading the next one.
 
 ### **Milestone 2: Setup and Explore. Service model creation and first tests**
 
-**Objective**: Set up the framework and understand its structure. Create a service model with methods for the **Store** service.
+**Objective**: Set up the framework and understand its structure. Create a service model with methods for the **Cat** service.
 
 1. Move to the framework folder:
    ```bash
@@ -79,21 +77,23 @@ Follow each Milestone without reading the next one.
     ```
 3. Update .env with the test API base URL:
     ```yaml
-    BASEURL=https://petstore.swagger.io/v2
+    BASEURL=http://localhost:3000/api
     ```
 4. Explore the framework:
-    - Read the [API Automation Framework (TS+Mocha)](https://github.com/damianpereira86/api-automation-training/tree/main/framework#readme) Readme.
+    - Read the [API Automation Framework (TS+Mocha)](framework/README.md) Readme.
     - Understand the `ServiceBase` class and its usage in service models.
 	
-5. Create a new `StoreService` extending `ServiceBase`.
-6. Implement methods in `StoreService` for the following operations:
-    - `GET /store/inventory`
-    - `POST /store/order`
-    - `GET /store/order/{orderId}`
-    - `DELETE /store/order/{orderId}`
+5. Create a new `CatService` extending `ServiceBase`.
+6. Implement methods in `CatService` for the following operations:
+    - `GET /cats`
+    - `POST /cats`
+    - `GET /cats/{catId}`
+    - `DELETE /cats/{catId}`
+    - `PATCH /cats/{catId}`
+    - `PUT /cats/{catId}`
 7. Add request and response models where appropriate.
 8. Write the **first test** for the following main scenario:
-   - Create an order and validate the response (`POST /store/order`).
+   - Create a cat and validate the response (`POST /cats`).
 
 **Deliverable**:
 
@@ -117,11 +117,11 @@ Follow each Milestone without reading the next one.
 
 ---
 
-### **Milestone 4: Complete the Create Order Suite**
+### **Milestone 4: Complete the Create Cat Suite**
 
-**Objective**: Write tests for the rest of the Create Store test Suite.
+**Objective**: Write some tests for the rest of the Create Cat test Suite.
 
-1. Write additional tests for the Create Order (`POST /store/order`) endpoint.
+1. Write some additional tests for the Create Cat (`POST /cats`) endpoint.
 2. Include positive and negative tests.
 3. Use tags like `@Smoke` or `@Regression` for test categorization. `@Smoke` tests should be the ones that are absolutely required to pass.
 4. In case a test fails due to a bug in the API, make sure to create the bug in the Issues tab and follow the [Bug Management documentation](https://github.com/damianpereira86/api-automation-training/tree/main/framework#bug-management).
@@ -132,17 +132,16 @@ Follow each Milestone without reading the next one.
 
 ---
 
-### **Milestone 5: Verify the order was created**
+### **Milestone 5: Verify the cat was created**
 
-**Objective**: Make a request to the get order endpoint to verify the order was actually created.
+**Objective**: Make a request to the get cat endpoint to verify the cat was actually created.
 
-Note: when testing a POST endpoint you normally don't send the ID (it is generated automatically and returned to you in the response), but you might have noticed that this endpoint allows you to do that, and the order gets actually created with the ID you sent.
-But in case you didn't already notice, if you didn't provide the ID in the Create Order endpoint, it does not actually create an order (all the data is mocked). For this reason, if you did that and only asserted against the response, your positive tests should have passed. This is why is so important to verify the resources were actually created.
+Note: some test APIs out there use mocked data to return the same thing you sent on the body and don't actually create your object. For this reason, if you only assert against the response, your tests might pass even when the feature is not actually working. This is why is so important to verify the resources were actually created.
+In this case, the API actually stores the data and you won't see any change in the results either if you only check the response or if you call the get method, but in order to test it the right way:
 
 1. For your positive tests, after the response assertions, obtain the created order ID from the response
-2. Make a request to the `GET /store/order/{orderId}` endpoint with the order ID
-3. Verify the response of the Get Order endpoint is 200, hence, the order was created successfully.
-4. Since the test where you didn't provide the ID for the POST in the first place should now be failing, follow step 4 in Milestone 5 for handling it.
+2. Make a request to the `GET /cats/{catId}` endpoint with the cat ID
+3. Verify that the response of the Get Cat endpoint is 200, hence, the order was created successfully.
 
 **Deliverable**:
 
@@ -150,14 +149,16 @@ But in case you didn't already notice, if you didn't provide the ID in the Creat
 
 ---
 
-### **Milestone 6: Create Test Suites for the rest of the Store Service**
+### **Milestone 6: Create Test Suites for the rest of the Cat Service**
 
-**Objective**: Write tests for the rest of the Store service following the practices covered above.
+**Objective**: Write tests for the rest of the Cat Service following the practices covered above.
 
-1. Write a test suite for each of the remaining endpoints in the Store Service:
-    - `GET /store/inventory`
-    - `GET /store/order/{orderId}`
-    - `DELETE /store/order/{orderId}`
+1. Write a test suite for each of the remaining endpoints in the Cat Service:
+    - `GET /cats`
+    - `GET /cats/{catId}`
+    - `DELETE /cats/{catId}`
+    - `PATCH /cats/{catId}`
+    - `PUT /cats/{catId}`
 
 **Deliverable**:
 
@@ -169,16 +170,13 @@ But in case you didn't already notice, if you didn't provide the ID in the Creat
 
 **Objective**: Write hooks for pre and post-conditions.
 
-Note: Remember that with this API, to create an order that you can actually use in the Get Order scenarios you must provide an order ID in the order creation.
-
-1. Write a [before hook](https://mochajs.org/#hooks) in the Get Order test suite.
-   1. Add a Before hook that creates an order by calling the right method in the StoreService model.
-   3. Obtain and store the order ID (the variable for this must be declared above the before hook).
-   4. Use the saved Order ID in the Get Order test.
-2. Write an after each hook in the Create Order test suite. This is very useful for cleaning up data after a test execution.
-   1. Declare an orderId variable on top of the test suite
-   2. After every positive test, update the orderId variable with the newly created Order ID.
-   3. Add an AfterEach hook that deletes the created orders by calling the right method in the StoreService model. 
+1. Write a [before hook](https://mochajs.org/#hooks) in the Get Cat test suite.
+   1. Add a Before hook that creates a cat by calling the right method in the CatService model.
+   3. Obtain and store the catId (the variable for this must be declared above the before hook).
+   4. Use the saved catId in the Get Cat test.
+2. Write an after each hook in the Create Cat test suite. This is very useful for cleaning up data after a test execution.
+   1. After every positive test, update the catId variable with the newly created Cat ID.
+   2. Add an AfterEach hook that deletes the created cat by calling the right method in the CatService model. 
 
 **Deliverable**:
 
@@ -200,9 +198,10 @@ Note: Remember that with this API, to create an order that you can actually use 
 
 ### **Milestone 9: Extend to Other Services**
 
-**Objective**: Implement automation for additional services (`Pet` and `User`).
+**Objective**: Implement automation for additional services (`Staff` and `Adopter`).
 
-1. Repeat the previous steps for **Pet** and **User** services.
+1. Repeat the previous steps for **Staff** and **Adopter** services.
+Note that your tests for the Staff service will fail with a 401. This will get solved on next Milestone. You can mark them to be skipped in the meantime.
 
 **Deliverable**:
 
@@ -214,17 +213,17 @@ Note: Remember that with this API, to create an order that you can actually use 
 
 **Objective**: Implement the authenticate method.
 
-1. Go to the ServiceBase class and find the example `authenticate` method
+1. Go to the ServiceBase class and find the example `authenticate` method.
 2. Read the method and the [documentation](https://github.com/damianpereira86/api-automation-training/tree/main/framework#authentication) to understand what it does. 
-3. Modify the authenticate method implementation
-   1. Add the USER and PASSWORD environment variables to the .env file
-   2. Modify line 46 to call the `GET /user/login` endpoint. Note that this endpoint is a GET, and expects two params instead of a payload as in the example.
-   3. Set the obtained Session ID correctly according to the API documentation. Check the [Delete Pet](https://petstore.swagger.io/#/pet/deletePet) request for information on how to set the session ID.
-   4. Modify the Delete Pet test to call the authenticate method from a before hook.
+3. Remove the skip notation in your Staff tests.
+4. Use the authentication method in your Staff tests to make them pass.
+   1. Add the USER and PASSWORD environment variables to the .env file with values: USER=admin; PASSWORD=password
+   2. Modify the tests to call the authenticate method from a before hook to get the config with the auth header.
+   3. Send the config in all your Staff related calls to the StaffService methods.
 
 **Deliverable**:
 
-- Create a PR with the new authenticate method and the modified Delete.
+- Create a PR with the Staff endpoints now passing.
 
 ---
 

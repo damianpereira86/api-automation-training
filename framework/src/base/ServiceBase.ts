@@ -21,8 +21,7 @@ export class ServiceBase {
   }
 
   // This is an example of how to authenticate to an API with basic auth.
-  // TODO: Add authentication logic for the API you are testing
-  async authenticate(): Promise<void> {
+  async authenticate(): Promise<AxiosRequestConfig> {
     const username = process.env["USER"];
     const password = process.env["PASSWORD"];
 
@@ -30,26 +29,13 @@ export class ServiceBase {
       throw new Error("Missing username or password in environment variables.");
     }
 
-    const cachedToken = SessionManager.getCachedToken(username, password);
-
-    if (cachedToken) {
-      this.defaultConfig = {
-        headers: { Cookie: "token=" + cachedToken },
-      };
-      return;
+    const config = {
+      headers: {
+        Authorization: 'Basic ' + Buffer.from(`${username}:${password}`).toString('base64'),
+      },
     }
 
-    const credentials: CredentialsModel = {
-      username,
-      password,
-    };
-    const response = await this.post<SessionResponse>(`${this.baseUrl}/auth`, credentials);
-
-    SessionManager.storeToken(username, password, response.data.token);
-
-    this.defaultConfig = {
-      headers: { Cookie: "token=" + response.data.token },
-    };
+    return config;
   }
 
   protected async get<T>(

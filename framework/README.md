@@ -231,8 +231,57 @@ This makes adding simple but powerful performance checks to your API automation 
 ## Authentication
 
 The authentication process depends on the method required by the API, but in most cases, it involves sending tokens in the request headers.
+Here you can see the examples for the CatCafeProject API and for the Restful-Booker API.
 
-In this repository, the API uses an `/auth` endpoint to obtain a token, which is then sent in the request headers as a cookie. To streamline this process, I’ve added an `authenticate()` method in the `ServiceBase` class, making it easy to authenticate with the API.
+# CatCafeProject
+
+The CatCafeProject API uses Basic Authentication, so a base64 token generated from the username and password is required to be send as a header.
+In the ServiceBase class there's an authenticate() method that returns the config with the token, which you should save into a variable on your tests. That way you can send it as a parameter on the endpoints that need authentication, overriding the default config.
+
+Here’s the implementation of the `authenticate()` method:
+
+```typescript
+async authenticate(): Promise<AxiosRequestConfig> {
+    const username = process.env["USER"];
+    const password = process.env["PASSWORD"];
+
+    if (!username || !password) {
+      throw new Error("Missing username or password in environment variables.");
+    }
+
+    const config = {
+      headers: {
+        Authorization: 'Basic ' + Buffer.from(`${username}:${password}`).toString('base64'),
+      },
+    }
+
+    return config;
+  }
+```
+
+Then you can use it on the services that require authentication, like in the before hook below.
+
+```tsx
+describe("Staff Tests", function () {
+
+    let authConfig = {};
+
+    before (async function () {
+        authConfig = await staffService.authenticate();
+    });
+
+    it("@Smoke - Get all - Success case", async function () {
+        const response = await staffService.getAllStaff(authConfig);
+        const staff = response.data as Staff[];
+        response.status.should.equal(200, JSON.stringify(response.data));
+        staff.should.be.a('array');
+    });
+}
+```
+
+# Resful-Booker
+
+The Resful-Booker API uses an `/auth` endpoint to obtain a token, which is then sent in the request headers as a cookie. To streamline this process, I’ve added an `authenticate()` method in the `ServiceBase` class, making it easy to authenticate with the API.
 
 Additionally, the token is cached so that subsequent calls to `authenticate()` from any service do not result in unnecessary requests to the server.
 
