@@ -1,4 +1,4 @@
-import { AxiosResponse, type AxiosRequestConfig } from "axios";
+import { AxiosResponse, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 import { ApiClient } from "./ApiClient.js";
 import { type SessionResponse } from "../models/responses/SessionResponse";
 import { Response } from "../models/responses/Response";
@@ -67,7 +67,7 @@ export class ServiceBase {
   protected async post<T>(
     url: string,
     data: unknown,
-    config: AxiosRequestConfig = this.defaultConfig,
+    config: InternalAxiosRequestConfig = this.defaultConfig as InternalAxiosRequestConfig,
   ): Promise<Response<T>> {
     const startTime = Date.now();
     const response = await this.api.client.post<T>(url, data, config);
@@ -80,7 +80,7 @@ export class ServiceBase {
   protected async put<T>(
     url: string,
     data: unknown,
-    config: AxiosRequestConfig = this.defaultConfig,
+    config: InternalAxiosRequestConfig = this.defaultConfig as InternalAxiosRequestConfig,
   ): Promise<Response<T>> {
     const startTime = Date.now();
     const response = await this.api.client.put<T>(url, data, config);
@@ -93,7 +93,7 @@ export class ServiceBase {
   protected async patch<T>(
     url: string,
     data: unknown,
-    config: AxiosRequestConfig = this.defaultConfig,
+    config: InternalAxiosRequestConfig = this.defaultConfig as InternalAxiosRequestConfig,
   ): Promise<Response<T>> {
     const startTime = Date.now();
     const response = await this.api.client.patch<T>(url, data, config);
@@ -105,7 +105,7 @@ export class ServiceBase {
 
   protected async delete<T>(
     url: string,
-    config: AxiosRequestConfig = this.defaultConfig,
+    config: InternalAxiosRequestConfig = this.defaultConfig as InternalAxiosRequestConfig,
   ): Promise<Response<T>> {
     const startTime = Date.now();
     const response = await this.api.client.delete<T>(url, config);
@@ -117,7 +117,7 @@ export class ServiceBase {
 
   protected async head<T>(
     url: string,
-    config: AxiosRequestConfig = this.defaultConfig,
+    config: InternalAxiosRequestConfig = this.defaultConfig as InternalAxiosRequestConfig,
   ): Promise<Response<T>> {
     const startTime = Date.now();
     const response = await this.api.client.head<T>(url, config);
@@ -129,7 +129,7 @@ export class ServiceBase {
 
   protected async options<T>(
     url: string,
-    config: AxiosRequestConfig = this.defaultConfig,
+    config: InternalAxiosRequestConfig = this.defaultConfig as InternalAxiosRequestConfig,
   ): Promise<Response<T>> {
     const startTime = Date.now();
     const response = await this.api.client.options<T>(url, config);
