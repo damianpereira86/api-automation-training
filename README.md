@@ -65,35 +65,45 @@ Follow each Milestone without reading the next one.
 
 **Objective**: Set up the framework and understand its structure. Create a service model with methods for the **Cat** service.
 
-1. Move to the framework folder:
-   ```bash
-    cd framework
-    ```
-2. Install dependencies and set up your environment:
-    
-    ```bash
-    npm install
-    copy example.env .env
-    ```
-3. Update .env with the test API base URL:
-    ```yaml
-    BASEURL=http://localhost:3000/api
-    ```
-4. Explore the framework:
+1. Explore the framework:
     - Read the [API Automation Framework (TS+Mocha)](framework/README.md) Readme.
     - Understand the `ServiceBase` class and its usage in service models.
-	
-5. Create a new `CatService` extending `ServiceBase`.
-6. Implement methods in `CatService` for the following operations:
+2. Follow the directions of the previous page to setup your environment:
+    - Follow the instructions from section "Setup - Preparing your Environment", providing the URL from this repo.
+	- Follow the instructions from section "Setup - Setting up your local environment". Update the .env file with the test API base URL:
+	```yaml
+    BASEURL=http://localhost:3000/api
+    ```
+3. Set up the API:
+    - Download the CatCafeAPI project from https://github.com/CodingRainbowCat/CatCafeProject (click on the "<> Code" button -> "Download ZIP").
+	- Optional: rename the "CatCafeProject-main" folder to "CatCafeAPI" for simplification.
+	- Place the CatCafeProject folder into the api-automation-training folder.
+	- In the terminal, move to the CatCafeProject folder and install the dependencies:
+   ```bash
+    cd..
+	cd CatCafeAPI
+	npm install
+    ```
+4. Create a new `CatService` extending `ServiceBase`.
+5. Implement methods in `CatService` for the following operations:
     - `GET /cats`
     - `POST /cats`
     - `GET /cats/{catId}`
     - `DELETE /cats/{catId}`
     - `PATCH /cats/{catId}`
     - `PUT /cats/{catId}`
-7. Add request and response models where appropriate.
-8. Write the **first test** for the following main scenario:
+6. Add request and response models where appropriate.
+7. Write the **first test** for the following main scenario:
    - Create a cat and validate the response (`POST /cats`).
+8. To run the tests, follow the directions from page in step 1, but first you'll need to run the API:
+    - On VS Code, open a new terminal (you will have 2 working terminals: one for the API and one to run your tests)
+	- Run the following commands:
+	```bash
+	cd CatCafeAPI
+	npm run dev
+    ```
+	- Leave the terminal opened and go to the first one (or open a new one if you didn't have one previously) to run your tests.
+	- You can check if the API is running properly using this URL in your explorer: http://localhost:3000/api-docs
 
 **Deliverable**:
 
@@ -107,9 +117,9 @@ Follow each Milestone without reading the next one.
 
 1. If you are not familiar with GitHub Actions, do some research to understand the basics, such as workflows, jobs, and steps. Refer to the [GitHub Actions Documentation](https://docs.github.com/en/actions).
 2. Explore the `.github/workflows/main.yml` file to understand the workflow triggers and steps.
-3. Based on the research you did on Github Actions and your experience runing the tests in Visual Code, add the missing line in the main.yml file so the tests are run in the pipeline.
-4. Create a new environment called "Testing" in **Settings** > **Environments** > **New environment**
-5. Configure the `BASEURL` as an environment variable with value: `https://petstore.swagger.io/v2`
+3. Create a new environment in your forked repo called "Testing" in **Settings** > **Environments** > **New environment**
+4. Configure the `BASEURL` as an environment variable with value: `http://localhost:3000/api`
+5. Find a way to update the main.yml file so the API run first in the pipeline before the tests are run.
 
 **Deliverable**:
 
@@ -139,9 +149,9 @@ Follow each Milestone without reading the next one.
 Note: some test APIs out there use mocked data to return the same thing you sent on the body and don't actually create your object. For this reason, if you only assert against the response, your tests might pass even when the feature is not actually working. This is why is so important to verify the resources were actually created.
 In this case, the API actually stores the data and you won't see any change in the results either if you only check the response or if you call the get method, but in order to test it the right way:
 
-1. For your positive tests, after the response assertions, obtain the created order ID from the response
-2. Make a request to the `GET /cats/{catId}` endpoint with the cat ID
-3. Verify that the response of the Get Cat endpoint is 200, hence, the order was created successfully.
+1. For your positive tests, after the response assertions, obtain the created cat ID from the response
+2. Make a request to the `GET /cats/{catId}` endpoint with that ID
+3. Verify that the response of the Get Cat endpoint is 200, hence, the cat was created successfully.
 
 **Deliverable**:
 
@@ -172,8 +182,8 @@ In this case, the API actually stores the data and you won't see any change in t
 
 1. Write a [before hook](https://mochajs.org/#hooks) in the Get Cat test suite.
    1. Add a Before hook that creates a cat by calling the right method in the CatService model.
-   3. Obtain and store the catId (the variable for this must be declared above the before hook).
-   4. Use the saved catId in the Get Cat test.
+   2. Obtain and store the catId (the variable for this must be declared above the before hook).
+   3. Use the saved catId in the Get Cat test.
 2. Write an after each hook in the Create Cat test suite. This is very useful for cleaning up data after a test execution.
    1. After every positive test, update the catId variable with the newly created Cat ID.
    2. Add an AfterEach hook that deletes the created cat by calling the right method in the CatService model. 
@@ -214,12 +224,30 @@ Note that your tests for the Staff service will fail with a 401. This will get s
 **Objective**: Implement the authenticate method.
 
 1. Go to the ServiceBase class and find the example `authenticate` method.
-2. Read the method and the [documentation](https://github.com/damianpereira86/api-automation-training/tree/main/framework#authentication) to understand what it does. 
-3. Remove the skip notation in your Staff tests.
-4. Use the authentication method in your Staff tests to make them pass.
-   1. Add the USER and PASSWORD environment variables to the .env file with values: USER=admin; PASSWORD=password
-   2. Modify the tests to call the authenticate method from a before hook to get the config with the auth header.
-   3. Send the config in all your Staff related calls to the StaffService methods.
+2. Read the method and its [documentation](https://github.com/damianpereira86/api-automation-training/tree/main/framework#authentication) to understand what it does.
+3. Now read the [CatCafeProject documentation](https://github.com/CodingRainbowCat/CatCafeProject) to understand how the authentication works for this API.
+4. Update the authenticate method in the ServiceBase class and any other part of the code you need, to implement authentication for your Staff tests.
+5. Remove the skip notation in your Staff tests.
+6. Use the authentication method in your Staff tests to make them pass:
+   1. Add the USER and PASSWORD environment variables in the framework/.env file with values: USER=Test; PASSWORD=password1234
+   2. Add the JWT_SECRET environment variable in the CatCafeAPI/.env file with value: JWT_SECRET=gfser3793rfihwfw83uq3jfwijfelr3ur84yt9qpufpifjrljgh48u4e9qpipe9ip (Note: if you were using an empty user DB, you could set any JWT_SECRET you'd like and then create new users for logging in).
+   3. Modify the tests to call the authenticate method from a before hook, sending the credentials from your env file.
+   4. Add the "JWT_SECRET" secret configuration in the main.yml file.
+   5. Create the secret variables "USER", "PASSWORD" and "JWT_SECRET" in your Testing environment on Github, with the same values from step 1 and 3.
+
+**Deliverable**:
+
+- Create a PR with the Staff endpoints now passing.
+
+---
+
+### **Milestone 11: Authentication service and Session Manager**
+
+**Objective**: Finish implementation for all available endpoints in the CatCafeAPI. Apply Session Manager if missing.
+
+1. If you didn't use it as part of the previous milestone, implement the SessionManager so you don't need to call the login endpoint if your Token is not expired. When expired, use the refresh Token to get a new AccessToken.
+2. Create an AuthService for the Auth endpoints.
+3. Create a tests suite for the created service.
 
 **Deliverable**:
 
