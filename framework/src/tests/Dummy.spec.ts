@@ -1,5 +1,5 @@
-import { should } from 'chai';
-should();
+import { chai } from 'chai';
+chai.should();
 
 describe('Pipeline initial tests', () => {
   it('Dummy success test', () => {
