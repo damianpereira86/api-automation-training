@@ -2,8 +2,6 @@
 
 Welcome to the **API Automation Training**! This repository serves as the foundation for the training, providing a base API Automation Framework and step-by-step guidance for participants to build their API automation skills.
 
-Find the API Framework documentation [here](framework/README.md).
-
 The training is designed for participants to fork this repository, develop their tests for a mock API, and create Pull Requests (PRs) for feedback and review. Mentors will review PRs regularly, providing feedback and guidance to ensure learning and progress.
 
 ---
@@ -20,7 +18,7 @@ The training is designed for participants to fork this repository, develop their
    Grasp core concepts like service modeling (encapsulating API endpoints), organizing test cases, setting up environments with `.env` files, and strategies for functional and non-functional API testing.
 
 4. **Implement Test Automation**:  
-   Use the base framework to write tests for real-world scenarios using the [Petstore API](https://petstore.swagger.io/). Implement robust, maintainable test scripts for CRUD operations and edge cases.
+   Use the base framework to write tests for real-world scenarios using the [CatCafeProject API](https://github.com/CodingRainbowCat/CatCafeProject). Implement robust, maintainable test scripts for CRUD operations and edge cases.
 
 5. **Collaborate Effectively**:  
    Develop skills in using Git workflows for version control. Create feature branches, submit Pull Requests (PRs), and respond to feedback from mentors. Learn best practices for working in an asynchronous environment while maintaining high-quality contributions.
@@ -41,10 +39,11 @@ The training is designed for participants to fork this repository, develop their
 ## Training Milestones
 
 Before starting each milestone, create a feature branch with the name of the milestone, e.g.: `feature/milestone-1`
-Follow each Milestone without reading the next one.
+Follow each Milestone without reading the next one. 
 
 ### **Milestone 1: Learn the Basics of TypeScript**
 
+Note: If you feel comfortable enough using Typescript, you can skip this Milestone and start the training with Milestone 2.
 **Objective**: Gain a foundational understanding of TypeScript to support API automation.
 
 1. Complete an online TypeScript course:
@@ -63,37 +62,40 @@ Follow each Milestone without reading the next one.
 
 ---
 
-### **Milestone 2: Setup and Explore. Service model creation and first tests**
+### **Milestone 2: Setup and Explore. Service model creation.**
 
-**Objective**: Set up the framework and understand its structure. Create a service model with methods for the **Store** service.
+**Objective**: Set up the framework and understand its structure. Create a service model with methods for the **Cat** service.
 
-1. Move to the framework folder:
-   ```bash
-    cd framework
-    ```
-2. Install dependencies and set up your environment:
-    
-    ```bash
-    npm install
-    copy example.env .env
-    ```
-3. Update .env with the test API base URL:
-    ```yaml
-    BASEURL=https://petstore.swagger.io/v2
-    ```
-4. Explore the framework:
-    - Read the [API Automation Framework (TS+Mocha)](https://github.com/damianpereira86/api-automation-training/tree/main/framework#readme) Readme.
+1. Explore the framework:
+    - Read the [API Automation Framework (TS+Mocha)](https://github.com/damianpereira86/api-framework-ts-mocha) Readme.
     - Understand the `ServiceBase` class and its usage in service models.
-	
-5. Create a new `StoreService` extending `ServiceBase`.
-6. Implement methods in `StoreService` for the following operations:
-    - `GET /store/inventory`
-    - `POST /store/order`
-    - `GET /store/order/{orderId}`
-    - `DELETE /store/order/{orderId}`
-7. Add request and response models where appropriate.
-8. Write the **first test** for the following main scenario:
-   - Create an order and validate the response (`POST /store/order`).
+2. Follow the directions of the previous page to setup your environment:
+    - Follow the instructions from section "Setup - Preparing your Environment", providing the URL from this repo.
+	- Follow the instructions from section "Setup - Setting up your local environment". Update the .env file with the test API base URL:
+	```yaml
+    BASEURL=http://localhost:3000/api
+    ```
+3. Set up the API:
+    - Download the CatCafeAPI project from https://github.com/CodingRainbowCat/CatCafeProject (click on the "<> Code" button -> "Download ZIP").
+	- Optional: rename the "CatCafeProject-main" folder to "CatCafeAPI" for simplification.
+	- Place the CatCafeProject folder into the api-automation-training folder.
+	- In the terminal, move to the CatCafeProject folder and install the dependencies:
+   ```bash
+    cd..
+	cd CatCafeAPI
+	npm install
+    ```
+	- Set the .env file following the instructions in the "Authentication" section from the CatCafeProject documentation (link in step 1). 
+4. Create a new `CatService` extending `ServiceBase`.
+5. Implement methods in `CatService` for the following operations:
+    - `GET /cats`
+    - `POST /cats`
+    - `GET /cats/{catId}`
+    - `DELETE /cats/{catId}`
+    - `PATCH /cats/{catId}`
+    - `PUT /cats/{catId}`
+6. Add request and response models where appropriate.
+
 
 **Deliverable**:
 
@@ -107,9 +109,12 @@ Follow each Milestone without reading the next one.
 
 1. If you are not familiar with GitHub Actions, do some research to understand the basics, such as workflows, jobs, and steps. Refer to the [GitHub Actions Documentation](https://docs.github.com/en/actions).
 2. Explore the `.github/workflows/main.yml` file to understand the workflow triggers and steps.
-3. Based on the research you did on Github Actions and your experience runing the tests in Visual Code, add the missing line in the main.yml file so the tests are run in the pipeline.
-4. Create a new environment called "Testing" in **Settings** > **Environments** > **New environment**
-5. Configure the `BASEURL` as an environment variable with value: `https://petstore.swagger.io/v2`
+3. Create a new environment in your forked repo called "Local" in **Settings** > **Environments** > **New environment**
+4. Configure the `BASEURL` as an environment variable with value: `http://localhost:3000/api`.
+5. Set the `JWT_SECRET` as an environment secret (use the same value you used in Milestone 1 step 3).
+6. Update the main.yml file:
+    - Add the "JWT_SECRET" secret configuration in the main.yml file.
+    - Find a way to make the API run first in the pipeline before the tests are run.
 
 **Deliverable**:
 
@@ -117,14 +122,24 @@ Follow each Milestone without reading the next one.
 
 ---
 
-### **Milestone 4: Complete the Create Order Suite**
+### **Milestone 4: Implement the Create Cat Suite**
 
-**Objective**: Write tests for the rest of the Create Store test Suite.
+**Objective**: Create and write tests for the Create Cat test Suite.
 
-1. Write additional tests for the Create Order (`POST /store/order`) endpoint.
-2. Include positive and negative tests.
-3. Use tags like `@Smoke` or `@Regression` for test categorization. `@Smoke` tests should be the ones that are absolutely required to pass.
-4. In case a test fails due to a bug in the API, make sure to create the bug in the Issues tab and follow the [Bug Management documentation](https://github.com/damianpereira86/api-automation-training/tree/main/framework#bug-management).
+1. Write the **first tests** for the `POST /cats` endpoint and validate the response:
+   - Create a CreateCatTests.spec.ts file with the tests.
+   - Include positive and negative tests.
+   - Use tags like `@Smoke` or `@Regression` for test categorization. `@Smoke` tests should be the ones that are absolutely required to pass.
+   - In case a test fails due to a bug in the API, make sure to create the bug in the Issues tab and follow the [Bug Management documentation](https://github.com/damianpereira86/api-framework-ts-mocha#bug-management).
+2. To run the tests, follow the directions from page in step 1, but first you'll need to run the API:
+    - On VS Code, open a new terminal (you will have 2 working terminals: one for the API and one to run your tests)
+	- Run the following commands:
+	```bash
+	cd CatCafeAPI
+	npm run dev
+    ```
+	- Leave the terminal opened and go to the first one (or open a new one if you didn't have one previously) to run your tests.
+	- You can check if the API is running properly using this URL in your explorer: http://localhost:3000/api-docs
 
 **Deliverable**:
 
@@ -132,17 +147,16 @@ Follow each Milestone without reading the next one.
 
 ---
 
-### **Milestone 5: Verify the order was created**
+### **Milestone 5: Verify the cat was created**
 
-**Objective**: Make a request to the get order endpoint to verify the order was actually created.
+**Objective**: Make a request to the get cat endpoint to verify the cat was actually created.
 
-Note: when testing a POST endpoint you normally don't send the ID (it is generated automatically and returned to you in the response), but you might have noticed that this endpoint allows you to do that, and the order gets actually created with the ID you sent.
-But in case you didn't already notice, if you didn't provide the ID in the Create Order endpoint, it does not actually create an order (all the data is mocked). For this reason, if you did that and only asserted against the response, your positive tests should have passed. This is why is so important to verify the resources were actually created.
+Note: some test APIs out there use mocked data to return the same thing you sent on the body and don't actually create your object. For this reason, if you only assert against the response, your tests might pass even when the feature is not actually working. This is why is so important to verify the resources were actually created.
+In this case, the API actually stores the data and you won't see any change in the results either if you only check the response or if you call the get method, but in order to test it the right way:
 
-1. For your positive tests, after the response assertions, obtain the created order ID from the response
-2. Make a request to the `GET /store/order/{orderId}` endpoint with the order ID
-3. Verify the response of the Get Order endpoint is 200, hence, the order was created successfully.
-4. Since the test where you didn't provide the ID for the POST in the first place should now be failing, follow step 4 in Milestone 5 for handling it.
+1. For your positive tests, after the response assertions, obtain the created cat ID from the response
+2. Make a request to the `GET /cats/{catId}` endpoint with that ID
+3. Verify that the response of the Get Cat endpoint is 200, hence, the cat was created successfully.
 
 **Deliverable**:
 
@@ -150,14 +164,16 @@ But in case you didn't already notice, if you didn't provide the ID in the Creat
 
 ---
 
-### **Milestone 6: Create Test Suites for the rest of the Store Service**
+### **Milestone 6: Create Test Suites for the rest of the Cat Service**
 
-**Objective**: Write tests for the rest of the Store service following the practices covered above.
+**Objective**: Write tests for the rest of the Cat Service following the practices covered above.
 
-1. Write a test suite for each of the remaining endpoints in the Store Service:
-    - `GET /store/inventory`
-    - `GET /store/order/{orderId}`
-    - `DELETE /store/order/{orderId}`
+1. Write a test suite for each of the remaining endpoints in the Cat Service:
+    - `GET /cats`
+    - `GET /cats/{catId}`
+    - `DELETE /cats/{catId}`
+    - `PATCH /cats/{catId}`
+    - `PUT /cats/{catId}`
 
 **Deliverable**:
 
@@ -169,16 +185,13 @@ But in case you didn't already notice, if you didn't provide the ID in the Creat
 
 **Objective**: Write hooks for pre and post-conditions.
 
-Note: Remember that with this API, to create an order that you can actually use in the Get Order scenarios you must provide an order ID in the order creation.
-
-1. Write a [before hook](https://mochajs.org/#hooks) in the Get Order test suite.
-   1. Add a Before hook that creates an order by calling the right method in the StoreService model.
-   3. Obtain and store the order ID (the variable for this must be declared above the before hook).
-   4. Use the saved Order ID in the Get Order test.
-2. Write an after each hook in the Create Order test suite. This is very useful for cleaning up data after a test execution.
-   1. Declare an orderId variable on top of the test suite
-   2. After every positive test, update the orderId variable with the newly created Order ID.
-   3. Add an AfterEach hook that deletes the created orders by calling the right method in the StoreService model. 
+1. Write a [before hook](https://mochajs.org/#hooks) in the Get Cat test suite.
+   1. Add a Before hook that creates a cat by calling the right method in the CatService model.
+   2. Obtain and store the catId (the variable for this must be declared above the before hook).
+   3. Use the saved catId in the Get Cat test.
+2. Write an after each hook in the Create Cat test suite. This is very useful for cleaning up data after a test execution.
+   1. After every positive test, update the catId variable with the newly created Cat ID.
+   2. Add an AfterEach hook that deletes the created cat by calling the right method in the CatService model. 
 
 **Deliverable**:
 
@@ -200,9 +213,10 @@ Note: Remember that with this API, to create an order that you can actually use 
 
 ### **Milestone 9: Extend to Other Services**
 
-**Objective**: Implement automation for additional services (`Pet` and `User`).
+**Objective**: Implement automation for additional services (`Adopter` and `User`).
 
-1. Repeat the previous steps for **Pet** and **User** services.
+1. Repeat the previous steps for **Adopter** and **User** services.
+2. Create at least one user in the DB without deleting it.
 
 **Deliverable**:
 
@@ -212,19 +226,21 @@ Note: Remember that with this API, to create an order that you can actually use 
 
 ### **Milestone 10: Authentication**
 
-**Objective**: Implement the authenticate method.
+**Objective**: Implement the authenticate method. Extend automation for **Staff** service.
 
-1. Go to the ServiceBase class and find the example `authenticate` method
-2. Read the method and the [documentation](https://github.com/damianpereira86/api-automation-training/tree/main/framework#authentication) to understand what it does. 
-3. Modify the authenticate method implementation
-   1. Add the USER and PASSWORD environment variables to the .env file
-   2. Modify line 46 to call the `GET /user/login` endpoint. Note that this endpoint is a GET, and expects two params instead of a payload as in the example.
-   3. Set the obtained Session ID correctly according to the API documentation. Check the [Delete Pet](https://petstore.swagger.io/#/pet/deletePet) request for information on how to set the session ID.
-   4. Modify the Delete Pet test to call the authenticate method from a before hook.
+1. Go to the ServiceBase class and find the example `authenticate` method.
+2. Read the method and its [documentation](https://github.com/damianpereira86/api-automation-training/tree/main/framework#authentication) to understand what it does.
+3. Now read the [CatCafeProject documentation](https://github.com/CodingRainbowCat/CatCafeProject) to understand how the authentication works for this API.
+4. Update the authenticate method in the ServiceBase class and any other part of the code you need, to implement authentication for your Staff tests using the SessionManager.
+5. Implement the StaffService and its tests suite.
+6. Use the authentication method in your Staff tests:
+   1. Add the USER and PASSWORD environment variables in the framework/.env file, using the data from an existing user that you created on step 2 from Milestone 9.
+   2. Modify the tests to call the authenticate method from a before hook, sending the credentials from your env file.
+   3. Create the secret variables "USER", "PASSWORD" and "JWT_SECRET" in your "Local" environment on Github.
 
 **Deliverable**:
 
-- Create a PR with the new authenticate method and the modified Delete.
+- Create separate PRs for the implementation of the authentication infrastructure and for the Staff service and tests.
 
 ---
 

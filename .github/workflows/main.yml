@@ -14,15 +14,21 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: Testing
     defaults:
       run:
         working-directory: ./framework
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup Test Step
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: "18.x"
-      - run: npm install
-      - run: npm run lint
+          node-version: "20.x"
+      # Set up and run the tests
+      - name: Run npm install and lint
+        run: |
+            npm install
+            npm run lint
+      - name: Test
+        run: npm run test
