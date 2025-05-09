@@ -1,8 +1,8 @@
-import { expect } from 'chai';
+import "chai/register-should.js";
 
 describe('Pipeline initial tests', () => {
   it('Dummy success test', () => {
     var result = true;
-    expect(result).to.be.true;
+    result.should.be.true;
   });
 });

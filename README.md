@@ -147,24 +147,7 @@ Note: If you feel comfortable enough using Typescript, you can skip this Milesto
 
 ---
 
-### **Milestone 5: Verify the cat was created**
-
-**Objective**: Make a request to the get cat endpoint to verify the cat was actually created.
-
-Note: some test APIs out there use mocked data to return the same thing you sent on the body and don't actually create your object. For this reason, if you only assert against the response, your tests might pass even when the feature is not actually working. This is why is so important to verify the resources were actually created.
-In this case, the API actually stores the data and you won't see any change in the results either if you only check the response or if you call the get method, but in order to test it the right way:
-
-1. For your positive tests, after the response assertions, obtain the created cat ID from the response
-2. Make a request to the `GET /cats/{catId}` endpoint with that ID
-3. Verify that the response of the Get Cat endpoint is 200, hence, the cat was created successfully.
-
-**Deliverable**:
-
-- Create a PR with the tests and a brief summary of the changes.
-
----
-
-### **Milestone 6: Create Test Suites for the rest of the Cat Service**
+### **Milestone 5: Create Test Suites for the rest of the Cat Service**
 
 **Objective**: Write tests for the rest of the Cat Service following the practices covered above.
 
@@ -181,7 +164,7 @@ In this case, the API actually stores the data and you won't see any change in t
 
 ---
 
-### **Milestone 7: Pre and Post conditions: Hooks**
+### **Milestone 6: Pre and Post conditions: Hooks**
 
 **Objective**: Write hooks for pre and post-conditions.
 
@@ -199,7 +182,7 @@ In this case, the API actually stores the data and you won't see any change in t
 
 ---
 
-### **Milestone 8: Verify endpoints basic Performance**
+### **Milestone 7: Verify endpoints basic Performance**
 
 **Objective**: Expand the test suite with basic performance test cases.
 
@@ -211,7 +194,7 @@ In this case, the API actually stores the data and you won't see any change in t
 
 ---
 
-### **Milestone 9: Extend to Other Services**
+### **Milestone 8: Extend to Other Services**
 
 **Objective**: Implement automation for additional services (`Adopter` and `User`).
 
@@ -224,7 +207,7 @@ In this case, the API actually stores the data and you won't see any change in t
 
 ---
 
-### **Milestone 10: Authentication**
+### **Milestone 9: Authentication**
 
 **Objective**: Implement the authenticate method. Extend automation for **Staff** service.
 
