@@ -57,7 +57,6 @@ Note: If you feel comfortable enough using Typescript, you can skip this Milesto
 **Deliverable**:
 
 - Create a PR with the `typescript-course` folder containing your improved code and the completion certificate.
-- Include a brief summary in the PR description highlighting the topics you covered and any challenges you faced.
 
 ---
 
@@ -65,40 +64,36 @@ Note: If you feel comfortable enough using Typescript, you can skip this Milesto
 
 **Objective**: Set up the framework and understand its structure. Create a service model with methods for the **Cat** service.
 
-1. Explore the framework:
-    - Read the [API Automation Framework (TS+Mocha)](https://github.com/damianpereira86/api-framework-ts-mocha) Readme.
-    - Understand the `ServiceBase` class and its usage in service models.
-2. Follow the directions of the previous page to setup your environment:
-    - Follow the instructions from section "Setup - Preparing your Environment", providing the URL from this repo.
-	- Follow the instructions from section "Setup - Setting up your local environment". Update the .env file with the test API base URL:
-	```yaml
-    BASEURL=http://localhost:3000/api
-    ```
-3. Set up the API:
+1. Set up the CatCafé API:
     - Download the CatCafeAPI project from https://github.com/CodingRainbowCat/CatCafeProject (click on the "<> Code" button -> "Download ZIP").
 	- Optional: rename the "CatCafeProject-main" folder to "CatCafeAPI" for simplification.
 	- Place the CatCafeProject folder into the api-automation-training folder.
-	- In the terminal, move to the CatCafeProject folder and install the dependencies:
-   ```bash
-    cd..
-	cd CatCafeAPI
+	- In the terminal, navigate to the CatCafeProject folder and follow the instructions in the Installation section of the CatCafé Readme.
+ 	- Run the API following the instructions in the [Running the project](https://github.com/CodingRainbowCat/CatCafeProject?tab=readme-ov-file#running-the-project) section.
+  	- Leave the terminal open. You can check if the API is running using this URL: http://localhost:3000/api-docs- 
+2. Explore the Automation framework:
+    - Read the [API Automation Framework (TS+Mocha)](https://github.com/damianpereira86/api-framework-ts-mocha) Readme.
+    - Understand the `ServiceBase` class and its usage in service models.
+3. Navigate to the framework folder and install its dependencies:
+```bash
+	cd framework
 	npm install
-    ```
-	- Set the .env file following the instructions in the "Authentication" section from the CatCafeProject documentation (link in step 1). 
-4. Create a new `CatService` extending `ServiceBase`.
-5. Implement methods in `CatService` for the following operations:
+```
+4. Follow the directions on the [Setting up your local environment](https://github.com/damianpereira86/api-framework-ts-mocha?tab=readme-ov-file#setting-up-your-local-environment) section.
+5. Create a new `CatService` extending `ServiceBase`.
+6. Implement methods in `CatService` for the following operations:
     - `GET /cats`
     - `POST /cats`
     - `GET /cats/{catId}`
     - `DELETE /cats/{catId}`
     - `PATCH /cats/{catId}`
     - `PUT /cats/{catId}`
-6. Add request and response models where appropriate.
-
+7. Add request and response models where appropriate.
+8. Write the **first test** for the `POST /cats` endpoint to verify that a Cat can be created successfully.
 
 **Deliverable**:
 
-- Create a PR with the change, adding a short description of your implementation process.
+- Create a PR with the changes.
 
 ---
 
@@ -117,7 +112,7 @@ Note: If you feel comfortable enough using Typescript, you can skip this Milesto
 
 **Deliverable**:
 
-- Create a PR with a summary of what you learned and confirm that the workflow ran successfully in the Actions tab.
+- Create a PR and confirm that the workflow ran successfully in the Actions tab.
 
 ---
 
@@ -125,24 +120,18 @@ Note: If you feel comfortable enough using Typescript, you can skip this Milesto
 
 **Objective**: Create and write tests for the Create Cat test Suite.
 
-1. Write the **first tests** for the `POST /cats` endpoint and validate the response:
-   - Create a CreateCatTests.spec.ts file with the tests.
+1. Write the rest of the required tests for the `POST /cats` endpoint:
    - Include positive and negative tests.
-   - Use tags like `@Smoke` or `@Regression` for test categorization. `@Smoke` tests should be the ones that are absolutely required to pass.
+   - Use tags like `@Smoke` or `@Regression` for test categorization.
    - In case a test fails due to a bug in the API, make sure to create the bug in the Issues tab and follow the [Bug Management documentation](https://github.com/damianpereira86/api-framework-ts-mocha#bug-management).
-2. To run the tests, follow the directions from page in step 1, but first you'll need to run the API:
-    - On VS Code, open a new terminal (you will have 2 working terminals: one for the API and one to run your tests)
-	- Run the following commands:
+2. Run the tests
 	```bash
-	cd CatCafeAPI
-	npm run dev
+	npm run test
     ```
-	- Leave the terminal opened and go to the first one (or open a new one if you didn't have one previously) to run your tests.
-	- You can check if the API is running properly using this URL in your explorer: http://localhost:3000/api-docs
 
 **Deliverable**:
 
-- Create a PR with the tests and a brief summary of the scenarios covered.
+- Create a PR with the tests. Remember to check the pipeline every time a PR is created. 
 
 ---
 
@@ -159,7 +148,7 @@ Note: If you feel comfortable enough using Typescript, you can skip this Milesto
 
 **Deliverable**:
 
-- **For each test suite**, create a PR with the tests and a brief summary of the scenarios covered.
+- **For each test suite**, create a PR with the tests.
 
 ---
 
@@ -177,7 +166,7 @@ Note: If you feel comfortable enough using Typescript, you can skip this Milesto
 
 **Deliverable**:
 
-- Create a PR with the changes and a brief summary. 
+- Create a PR with the changes. 
 
 ---
 
@@ -208,17 +197,17 @@ Note: If you feel comfortable enough using Typescript, you can skip this Milesto
 
 ### **Milestone 9: Authentication**
 
-**Objective**: Implement the authenticate method. Extend automation for **Staff** service.
+**Objective**: Implement the `authenticate` method. Extend automation for the **Staff** service.
 
 1. Go to the ServiceBase class and find the example `authenticate` method.
 2. Read the method and its [documentation](https://github.com/damianpereira86/api-automation-training/tree/main/framework#authentication) to understand what it does.
 3. Now read the [CatCafeProject documentation](https://github.com/CodingRainbowCat/CatCafeProject) to understand how the authentication works for this API.
 4. Update the authenticate method in the ServiceBase class and any other part of the code you need, to implement authentication for your Staff tests using the SessionManager.
-5. Implement the StaffService and its tests suite.
+5. Implement the StaffService and its test suite.
 6. Use the authentication method in your Staff tests:
    1. Add the USER and PASSWORD environment variables in the framework/.env file, using the data from an existing user that you created on step 2 from Milestone 9.
    2. Modify the tests to call the authenticate method from a before hook, sending the credentials from your env file.
-   3. Create the secret variables "USER", "PASSWORD" and "JWT_SECRET" in your "Local" environment on Github.
+   3. Create the secret variables "USER", "PASSWORD", and "JWT_SECRET" in your "Local" environment on Github.
 
 **Deliverable**:
 
