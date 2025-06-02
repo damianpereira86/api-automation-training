@@ -39,7 +39,6 @@ The training is designed for participants to fork this repository, develop their
 ## Training Milestones
 
 Before starting each milestone, create a feature branch with the name of the milestone, e.g.: `feature/milestone-1`
-Follow each Milestone without reading the next one. 
 
 ### **Milestone 1: Learn the Basics of TypeScript**
 
